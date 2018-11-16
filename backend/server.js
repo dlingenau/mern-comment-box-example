@@ -18,7 +18,7 @@ const API_PORT = process.env.API_PORT || 3001;
 // db config 
 mongoose.connect(getSecret('dbUri'));
 var db = mongoose.connection;
-db.on('error'. console.error.bind(console, 'MongoDB connection error: '));
+db.on('error', console.error.bind(console, 'MongoDB connection error: '));
 
 // configure API to use bodyParser and look for JSON data in the request body
 app.use(bodyParser.urlencoded({ extended: false }));
