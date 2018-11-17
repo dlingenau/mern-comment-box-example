@@ -37,12 +37,12 @@ class CommentBox extends Component {
 
 	submitComment = (e) => {
 		e.preventDefault();
-		const { author, comment } = this.state;
-		if (!author || !comment) alert("Please fill in both fields.");
-		fetch('http://localhost:3001/api/comments', {
+		const { author, text } = this.state;
+		if (!author || !text) return;
+		fetch('/api/comments', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ author, comment }),
+			body: JSON.stringify({ author, text }),
 		}).then(res => res.json()).then((res) => {
 			if (!res.success) this.setState({ error: res.error.message || res.error });
 			else this.setState({ author: '', text: '', error: null});
@@ -52,8 +52,6 @@ class CommentBox extends Component {
 	loadCommentsFromServer = () => {
 		// fetch returns a promise
 		fetch('/api/comments/')
-			// .then(res => res.text())
-			// .then(text => console.log(text));
 			.then(data => data.json())
 			.then((res) => {
 				if (!res.success) this.setState({ error: res.error });
